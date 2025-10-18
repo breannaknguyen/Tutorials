@@ -53,6 +53,7 @@ In a nutshell, web service is way for your survey to communicate with an externa
 <p align="center">
   <img src="pics/pic4.png" width="50%">
 </p>
+
 ### Why should you try it?
 - Allows you to have far more complex study designs without the hassle of the built-in Qualtrics tools
 - Implementation is much faster
