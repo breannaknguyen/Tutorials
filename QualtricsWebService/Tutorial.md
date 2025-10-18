@@ -68,6 +68,7 @@ There are an infinite number of ways to make a web app. In this tutorial, I'll b
 <p align="center">
   <img src="pics/pic5.png" width="50%">
 </p>
+
 ## Step-by-step guide
 
 ### Step 1: Set up beginning of Qualtrics survey as usual
@@ -77,6 +78,7 @@ First, we'll need to create a Qualtrics survey and its necessary parts before sw
 <p align="center">
   <img src="pics/pic1.png" width="50%">
 </p>
+
 ### Step 2: Make one example of the block you want to repeat (so you can take note of the language, format, etc. that should be accounted for).
 
 Now, we need to make an example of what the future questions will look like. This will help us remember what exactly needs to be passed back from the web app. For our example study, it'll be this question.
