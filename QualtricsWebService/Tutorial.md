@@ -118,6 +118,7 @@ To find them:
 Now, we will switch from making the survey to building our custom web app. We need to start by creating an account on https://www.pythonanywhere.com. Whatever your username is, the URL to your website will be {username}.pythonanywhere.com.
 
 **You do NOT need any of the paid features. Follow the steps to make a free account.**
+
 #### Step 4b: Navigate to the Web tab
 
 <p align="center">
@@ -143,6 +144,7 @@ You can default to the most recent one.
 <p align="center">
   <img src="pics/pic11.png" width="50%">
 </p>
+
 #### Step 4e: Set your main file
 
 This will already be filled in for you. You can change the file name to whatever you want, but I like it to be app.py. Click next to continue.
@@ -174,7 +176,6 @@ You'll be taken to this page.
 <p align="center">
   <img src="pics/pic15.png" width="50%">
 </p>
-
 
 #### Step 4g: Upload necessary data
 
@@ -217,6 +218,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 Flask is the web framework we're implementing, and it comes with some handy functions like `request`, which can extract data from the URL, and `jsonify`, which can turn python data objects into JSON objects.
 
 > I don't have a concrete explanation for the code below that. I just know that these lines are necessary for pythonanywhere to know where your files are and what to run. You can copy and past exactly what I have here, even the secret key (this is a random string I generated).
+
 #### Step 4i: Create the main page of the app
 
 In the example that pythonanywhere gave us for this file, we saw `@app.route('/')`. This line defines what is loaded when the URL is accessed. This usually loads the "homepage" of a website, since there is nothing after the `/`. 
@@ -386,6 +388,7 @@ Now, if all goes well, accessing this link in your browser will return a wall of
 ### Step 6: Return to Qualtrics and connect it all together
 
 Now that we have a functional web app, we need to go back to Qualtrics and connect all the pieces.
+
 #### Step 6a: Add a web service block in the survey flow
 
 **Make sure this is AFTER the embedded variable block and BEFORE the repeated questions block**
