@@ -220,7 +220,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 Flask is the web framework we're implementing, and it comes with some handy functions like `request`, which can extract data from the URL, and `jsonify`, which can turn python data objects into JSON objects.
 
-> I don't have a concrete explanation for the code below that. I just know that these lines are necessary for pythonanywhere to know where your files are and what to run. You can copy and past exactly what I have here, even the secret key (this is a random string I generated).
+> I don't have a concrete explanation for the code below that. Just know that these lines are necessary for pythonanywhere to know where your files are and what to run. You can copy and past exactly what I have here, even the secret key (this is a random string I generated).
 
 #### Step 4i: Create the main page of the app
 
@@ -366,6 +366,8 @@ def index():
     # VERY IMPORTANT: Return the entire table in JSON format
     return jsonify(table_data) 
 ```
+
+> In it's current implementation, the web app returns reasons from participants who _share_ the current participants' stance on a topic (e.g., reasons to agree with statements they also agree with or reasons to disagree with statements they also disagree with). We could have implemented a function that filters the table for reasons for the opposing view by flipping the agreement value that the dataframe was filtered for.
 
 #### Step 4j: Return to the Web dashboard and reload the app
 
