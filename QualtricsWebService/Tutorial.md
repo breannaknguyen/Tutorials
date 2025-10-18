@@ -10,6 +10,8 @@
 
 ###### If you have any questions about this tutorial or how it can be applied to your project, please email me at breanna.nguyen@duke.edu :)
 
+---
+
 ## Problem: In-house Qualtrics survey builder functions sometimes fall short
 
 Consider a psych experiment about evaluating reasons for supporting or opposing statements related to food. How do people evaluate reasons for stances they agree vs disagree with, and does this depend on their food-loving status? The goal of the survey would be to 1) record whether the participant agreed or disagreed with the statements and 2) show them reasons that *other* people gave for agreeing or disagreeing with those statements (collected from a different study). 
@@ -46,6 +48,8 @@ It's even more complicated than just randomizing these variables, since 1, 3, an
 </p>
 This usually handled in with loop and merge, embedded data randomization, or display logic. But who wants to think through these 1000s of combinations and manually enter them? Not me.
 
+---
+
 ## Solution: Handle randomization in a Python app and connect it back to your survey using Web Service
 
 In a nutshell, web service is way for your survey to communicate with an external web application in real time. It sends data out from Qualtrics responses and receives data back from your web app. Qualtrics survey information will be sent to the web app in the form of URL parameters, and data will be sent back in a JSON format.
@@ -69,6 +73,8 @@ There are an infinite number of ways to make a web app. In this tutorial, I'll b
   <img src="pics/pic5.png" width="50%">
 </p>
 
+---
+
 ## Step-by-step guide
 
 ### Step 1: Set up beginning of Qualtrics survey as usual
@@ -78,6 +84,8 @@ First, we'll need to create a Qualtrics survey and its necessary parts before sw
 <p align="center">
   <img src="pics/pic1.png" width="50%">
 </p>
+
+---
 
 ### Step 2: Make one example of the block you want to repeat (so you can take note of the language, format, etc. that should be accounted for).
 
@@ -91,6 +99,8 @@ Recall the structure of this question and the interdependencies of the variables
 <p align="center">
   <img src="pics/pic3.png" width="50%">
 </p>
+
+---
 
 ### Step 3: Set some embedded variables (to be used later)
 
@@ -114,7 +124,11 @@ To find them:
   <img src="pics/pic7.png" width="50%">
 </p>
 
+---
+
 ### Step 4: Make and host your web app
+
+---
 
 #### Step 4a: Make a pythonanywhere account
 
@@ -122,11 +136,15 @@ Now, we will switch from making the survey to building our custom web app. We ne
 
 **You do NOT need any of the paid features. Follow the steps to make a free account.**
 
+---
+
 #### Step 4b: Navigate to the Web tab
 
 <p align="center">
   <img src="pics/pic8.png" width="50%">
 </p>
+
+---
 
 #### Step 4c: Add a new web app
 
@@ -148,6 +166,8 @@ You can default to the most recent one.
   <img src="pics/pic11.png" width="50%">
 </p>
 
+---
+
 #### Step 4e: Set your main file
 
 This will already be filled in for you. You can change the file name to whatever you want, but I like it to be app.py. Click next to continue.
@@ -155,6 +175,8 @@ This will already be filled in for you. You can change the file name to whatever
 <p align="center">
   <img src="pics/pic12.png" width="50%">
 </p>
+
+---
 
 #### Step 4f: Navigate to the web app file directory
 
@@ -180,9 +202,13 @@ You'll be taken to this page.
   <img src="pics/pic15.png" width="50%">
 </p>
 
+---
+
 #### Step 4g: Upload necessary data
 
 Recall that my study design requires reasons that *other* people gave for supporting or opposing food statements. This means that I need an exported and cleaned set of reasons to draw from. You can use the yellow "Upload a file button" to upload datasets like these into your app. I prefer to have them in csv format.
+
+---
 
 #### Step 4h: Open app.py and do some initial setup
 
@@ -221,6 +247,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 Flask is the web framework we're implementing, and it comes with some handy functions like `request`, which can extract data from the URL, and `jsonify`, which can turn python data objects into JSON objects.
 
 > I don't have a concrete explanation for the code below that. Just know that these lines are necessary for pythonanywhere to know where your files are and what to run. You can copy and past exactly what I have here, even the secret key (this is a random string I generated).
+
+---
 
 #### Step 4i: Create the main page of the app
 
@@ -369,6 +397,8 @@ def index():
 
 > In it's current implementation, the web app returns reasons from participants who _share_ the current participants' stance on a topic (e.g., reasons to agree with statements they also agree with or reasons to disagree with statements they also disagree with). We could have implemented a function that filters the table for reasons for the opposing view by flipping the agreement value that the dataframe was filtered for.
 
+---
+
 #### Step 4j: Return to the Web dashboard and reload the app
 
 See the photo in Step 4f. Hit the green reload button to recompile your app using the new code.
@@ -376,6 +406,8 @@ See the photo in Step 4f. Hit the green reload button to recompile your app usin
 Now, if you try to access the URL again, it'll throw an error. Why is that? You can check the error logs (lower down in the dashboard), but I'll explain why: 
 
 We haven't passed any information into the website yet. In the code, we loop through the URL parameters to get the Agree/Disagree values from the participant, but since we're just accessing the URL and passing no extra information, the code doesn't know what to loop through and sample.
+
+---
 
 ### Step 5: Test your web app
 
@@ -390,9 +422,13 @@ dibs.pythonanywhere.com/?pineapple=Agree&egg_ketchup=Agree&spicy=Agree&breakfast
 
 Now, if all goes well, accessing this link in your browser will return a wall of text in JSON format. If not, head to the error log to do some troubleshooting.
 
+---
+
 ### Step 6: Return to Qualtrics and connect it all together
 
 Now that we have a functional web app, we need to go back to Qualtrics and connect all the pieces.
+
+---
 
 #### Step 6a: Add a web service block in the survey flow
 
@@ -406,7 +442,6 @@ Paste the URL you used to test the website into the box and hit "Test"
 
 > You might be wondering, there are just hardcoded values here, don't we want it to match up with what the participant said in the previous question? The answer is yes, but if we do that before "testing" the website, it'll return nothing (as I explained in 4j). So, these hardcoded variables are still needed for the web service to know what information will be passed back.
 
-
 <p align="center">
   <img src="pics/pic17.png" width="50%">
 </p>
@@ -417,6 +452,8 @@ A window should pop up with all of the returned data. Select "All" at the top of
 </p>
 
 Now the website variables are set as embedded data. Make sure to save your changes by hitting "Apply" in the bottom right-hand corner.
+
+---
 
 #### Step 6c: Replace the hard-coded participant responses in the URL with the variable that actually represents their answer
 
@@ -431,6 +468,8 @@ I like to find this variable by acting like I'm going to set a new embedded vari
 > You might be wondering, why did we set the embedded variables just to make new variables that refer to those original variables? Well, we didn't *need* to, but it just made it easier to copy and paste all 10 answers. Rather than pasting the longer and non-intuitive variable name for selected answers, we can paste the shorter embedded variable values.
 
 Here, I found that the embedded variable for the pineapple question is `${e://Field/pineapple}`. I can then infer that all of them will be in a similar format `${e://Field/STATEMENT}`. Therefore, the new URL should be: https://dibs.pythonanywhere.com/?pineapple=${e://Field/pineapple}&egg_ketchup=${e://Field/egg_ketchup}&spicy=${e://Field/spicy}&breakfast=${e://Field/breakfast}&sushi=${e://Field/sushi}&cilantro=${e://Field/cilantro}&sweet_salty=${e://Field/sweet_salty}&fries_ketchup=${e://Field/fries_ketchup}&soup=${e://Field/soup}&avocado=${e://Field/avocado}
+
+---
 
 #### Step 6d: Format and duplicate the repeated questions
 
@@ -455,6 +494,8 @@ Notice how the embedded data variables in that first block include `0.` before t
 >This works with how my app is set up, but if you did it a different way, you'd need to check that the sequence of variables follows this pattern.
 
 **That's it! Now, you should have a working Qualtrics survey with Web Service integration.** 
+
+---
 
 ## Conclusion
 
