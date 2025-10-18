@@ -1,6 +1,8 @@
 # Using Qualtrics Web Service to Implement Complex Study Designs
 
-![[main.png]]
+<p align="center">
+  <img src="pics/main.png" width="50%">
+</p>
 
 ###### Have you ever needed to make a Qualtrics survey that had several randomized variables, variables that depended on each other, or a complicated display order? And then when you tried to implement it, you realized you'd need to make 1,000 loop and merge rows or if-then branches in survey flow? If so, I'm here to show you that there's a better and easier way to do this!
 
@@ -16,13 +18,17 @@ Let's think through how that would normally work in Qualtrics.
 
 This would be the first question, since we need to know what the participant's stance is on each statement.
 
-![[pic1.png]]
+<p align="center">
+  <img src="pics/pic1.png" width="50%">
+</p>
 
 Here's where it get's complicated. I want the next questions to be about a random subset of the statements, and for each selected statement, we will show a randomly selected subset of reasons. I already have the reasons given by other people, so it should be easy, right? ... right?
 
 I created this example of what I want to show for the next questions. I want to show 5 topics and 4 reasons for each topic. In the end, participants will see 20 of these questions.
 
-![[pic2.png]]
+<p align="center">
+  <img src="pics/pic2.png" width="50%">
+</p>
 
 How many things are going to be varying across questions?
 1) The title
@@ -35,14 +41,18 @@ How many things are going to be varying across questions?
 
 It's even more complicated than just randomizing these variables, since 1, 3, and 7 have to match, 2 and 6 have to match, and 4 and 5 have to correspond to the previously collected reason data. If there are around 10 topics, ~50 reasons for each position, and 2 possible food-loving statuses (Foodie or Non-Foodie) and 2 agreement values (Agree or Disagree), there's thousands of possible combinations for each question! Also, we need to keep in mind that these questions all depend on what stance the participant took in the previous question.
 
-![[pic3 1.png]]
+<p align="center">
+  <img src="pics/pic3.png" width="50%">
+</p>
 This usually handled in with loop and merge, embedded data randomization, or display logic. But who wants to think through these 1000s of combinations and manually enter them? Not me.
 
 ## Solution: Handle randomization in a Python app and connect it back to your survey using Web Service
 
 In a nutshell, web service is way for your survey to communicate with an external web application in real time. It sends data out from Qualtrics responses and receives data back from your web app. Qualtrics survey information will be sent to the web app in the form of URL parameters, and data will be sent back in a JSON format.
 
-![[pic4.png]]
+<p align="center">
+  <img src="pics/pic4.png" width="50%">
+</p>
 ### Why should you try it?
 - Allows you to have far more complex study designs without the hassle of the built-in Qualtrics tools
 - Implementation is much faster
@@ -54,27 +64,38 @@ In a nutshell, web service is way for your survey to communicate with an externa
 ### But wait, how do I even make my own web app? Where do I host it? How does Qualtrics know where to find it and what information to extract from it?
 
 There are an infinite number of ways to make a web app. In this tutorial, I'll be showing you how to implement it with Python and Flask (a web framework for Python) and host it on python anywhere, a *free* hosting platform for Python apps.
-![[pic5.png]]
+<p align="center">
+  <img src="pics/pic5.png" width="50%">
+</p>
 ## Step-by-step guide
 
 ### Step 1: Set up beginning of Qualtrics survey as usual
 
 First, we'll need to create a Qualtrics survey and its necessary parts before switching to the web app. For the study I described earlier, I would make this question first, since the future questions depend on the participant's answers to this one. 
 
-![[pic1.png]]
+<p align="center">
+  <img src="pics/pic1.png" width="50%">
+</p>
 ### Step 2: Make one example of the block you want to repeat (so you can take note of the language, format, etc. that should be accounted for).
 
 Now, we need to make an example of what the future questions will look like. This will help us remember what exactly needs to be passed back from the web app. For our example study, it'll be this question.
-![[pic2.png]]
+<p align="center">
+  <img src="pics/pic2.png" width="50%">
+</p>
 
 Recall the structure of this question and the interdependencies of the variables.
 
-![[pic3 1.png]]
+<p align="center">
+  <img src="pics/pic3.png" width="50%">
+</p>
+
 ### Step 3: Set some embedded variables (to be used later)
 
 I mentioned earlier that information from the survey will be passed to the web app using URL parameters. So, we need to set some embedded variables that refer to the answers that the participant gave to the intake questions. **Make sure this embedded variable block comes after the intake questions, otherwise they will be blank.**
 
-![[pic6.png]]
+<p align="center">
+  <img src="pics/pic6.png" width="50%">
+</p>
 
 On the left hand side of the equals sign are the variable names I set for each statement. On the right hand side is the Qualtrics convention for referring to the participant's answer to those questions.
 
@@ -84,7 +105,11 @@ To find them:
 3) Click "Insert Piped Text"
 4) Click "Survey Question"
 5) Find the question you want to refer to. If there are multiple sub-questions, find the specific one that the current variable should be set to
-	1) Note: You're able to set embedded variables for many things, but what we want here is the participant's answer. Don't set the variable to the description or a recode of the answer. What you're looking for should simply be the question and nothing else.![[pic7.png]]
+	1) Note: You're able to set embedded variables for many things, but what we want here is the participant's answer. Don't set the variable to the description or a recode of the answer. What you're looking for should simply be the question and nothing else.
+
+<p align="center">
+  <img src="pics/pic7.png" width="50%">
+</p>
 
 ### Step 4: Make and host your web app
 
@@ -95,25 +120,36 @@ Now, we will switch from making the survey to building our custom web app. We ne
 **You do NOT need any of the paid features. Follow the steps to make a free account.**
 #### Step 4b: Navigate to the Web tab
 
-![[pic8.png]]
+<p align="center">
+  <img src="pics/pic8.png" width="50%">
+</p>
+
 #### Step 4c: Add a new web app
 
 You'll be asked if you want to upgrade to use a custom domain name. Just click next to continue.
 
-![[pic9.png]]
+<p align="center">
+  <img src="pics/pic9.png" width="50%">
+</p>
 #### Step 4d: Select Flask
 
-![[pic10.png]]
+<p align="center">
+  <img src="pics/pic10.png" width="50%">
+</p>
 #### Step 4d: Select a Python version
 
 You can default to the most recent one.
 
-![[pic11.png]]
+<p align="center">
+  <img src="pics/pic11.png" width="50%">
+</p>
 #### Step 4e: Set your main file
 
 This will already be filled in for you. You can change the file name to whatever you want, but I like it to be app.py. Click next to continue.
 
-![[pic12.png]]
+<p align="center">
+  <img src="pics/pic12.png" width="50%">
+</p>
 
 #### Step 4f: Navigate to the web app file directory
 
@@ -123,15 +159,21 @@ Notice the highlighted URL. That's how your website will be accessed. If you cli
 
 Also notice the "Best before date:". Because this is a free account, pythonanywhere will disable your site if it notices that you haven't "renewed" it in 3 months. If your project is longer than that, you just have to click the yellow button periodically to push this date back.
 
-![[pic13.png]]
+<p align="center">
+  <img src="pics/pic13.png" width="50%">
+</p>
 
 If you scroll down on this page, you'll find a place to see the access and error logs, how much traffic the site is getting, and other useful things. What we want to do now is find the file directory.
 
-![[pic14.png]]
+<p align="center">
+  <img src="pics/pic14.png" width="50%">
+</p>
 
 You'll be taken to this page.
 
-![[pic15.png]]
+<p align="center">
+  <img src="pics/pic15.png" width="50%">
+</p>
 
 
 #### Step 4g: Upload necessary data
@@ -348,17 +390,23 @@ Now that we have a functional web app, we need to go back to Qualtrics and conne
 
 **Make sure this is AFTER the embedded variable block and BEFORE the repeated questions block**
 
-![[pic16.png]]
+<p align="center">
+  <img src="pics/pic16.png" width="50%">
+</p>
 #### Step 6b: Retrieve website outputs and set as embedded variables
 Paste the URL you used to test the website into the box and hit "Test"
 
 > You might be wondering, there are just hardcoded values here, don't we want it to match up with what the participant said in the previous question? The answer is yes, but if we do that before "testing" the website, it'll return nothing (as I explained in 4j). So, these hardcoded variables are still needed for the web service to know what information will be passed back.
 
 
-![[pic17.png]]
+<p align="center">
+  <img src="pics/pic17.png" width="50%">
+</p>
 
 A window should pop up with all of the returned data. Select "All" at the top of the page and then hit the green "Add Embedded Data" button.
-![[pic18.png]]
+<p align="center">
+  <img src="pics/pic18.png" width="50%">
+</p>
 
 Now the website variables are set as embedded data. Make sure to save your changes by hitting "Apply" in the bottom right-hand corner.
 
@@ -368,7 +416,9 @@ Now we need to replace all the "Agree"s in the URL with participants' actual ans
 
 I like to find this variable by acting like I'm going to set a new embedded variable, seeing what it's name is, and copying and pasting that over into the URL.
 
-![[pic19.png]]
+<p align="center">
+  <img src="pics/pic19.png" width="50%">
+</p>
 
 > You might be wondering, why did we set the embedded variables just to make new variables that refer to those original variables? Well, we didn't *need* to, but it just made it easier to copy and paste all 10 answers. Rather than pasting the longer and non-intuitive variable name for selected answers, we can paste the shorter embedded variable values.
 
@@ -380,11 +430,15 @@ Now, we need to go back to the example question we made in Step 2 and replace al
 
 For example, I would replace the SPICY FOOD title with what the website is passing as the title using Piped Text. You should be able to find the variable you're looking for in the embedded data fields. Based on how I set up the web app and the Web Service, the first title is indexed as `${e://Field/0.title}`. 
 
-![[pic20.png]]
+<p align="center">
+  <img src="pics/pic20.png" width="50%">
+</p>
 
 Now, replace *all* of the variables like that and you should be left with something like this.
 
-![[pic21.png]]
+<p align="center">
+  <img src="pics/pic21.png" width="50%">
+</p>
 
 We've created the first question, but now we need to duplicate this question for each set of information returned by the web app. For this example, we are displaying 20 total reasons, so we need 20 copies of this question.
 
