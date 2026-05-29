@@ -153,12 +153,18 @@ You'll be asked if you want to upgrade to use a custom domain name. Just click n
 <p align="center">
   <img src="pics/pic9.png" width="50%">
 </p>
+
+---
+
 #### Step 4d: Select Flask
 
 <p align="center">
   <img src="pics/pic10.png" width="50%">
 </p>
-#### Step 4d: Select a Python version
+
+---
+
+#### Step 4e: Select a Python version
 
 You can default to the most recent one.
 
@@ -168,7 +174,7 @@ You can default to the most recent one.
 
 ---
 
-#### Step 4e: Set your main file
+#### Step 4f: Set your main file
 
 This will already be filled in for you. You can change the file name to whatever you want, but I like it to be app.py. Click next to continue.
 
@@ -178,7 +184,7 @@ This will already be filled in for you. You can change the file name to whatever
 
 ---
 
-#### Step 4f: Navigate to the web app file directory
+#### Step 4g: Navigate to the web app file directory
 
 After loading for a bit, you'll be plopped into your web dashboard. This is the home base for your web app. You can navigate to this page at any point by selecting "Web" in the nav bar.
 
@@ -204,13 +210,13 @@ You'll be taken to this page.
 
 ---
 
-#### Step 4g: Upload necessary data
+#### Step 4h: Upload necessary data
 
 Recall that my study design requires reasons that *other* people gave for supporting or opposing food statements. This means that I need an exported and cleaned set of reasons to draw from. You can use the yellow "Upload a file button" to upload datasets like these into your app. I prefer to have them in csv format.
 
 ---
 
-#### Step 4h: Open app.py and do some initial setup
+#### Step 4i: Open app.py and do some initial setup
 
 When you open app.py, you should see this:
 
@@ -250,7 +256,7 @@ Flask is the web framework we're implementing, and it comes with some handy func
 
 ---
 
-#### Step 4i: Create the main page of the app
+#### Step 4j: Create the main page of the app
 
 In the example that pythonanywhere gave us for this file, we saw `@app.route('/')`. This line defines what is loaded when the URL is accessed. This usually loads the "homepage" of a website, since there is nothing after the `/`. 
 
@@ -399,7 +405,7 @@ def index():
 
 ---
 
-#### Step 4j: Return to the Web dashboard and reload the app
+#### Step 4k: Return to the Web dashboard and reload the app
 
 See the photo in Step 4f. Hit the green reload button to recompile your app using the new code.
 
