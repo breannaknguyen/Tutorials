@@ -232,7 +232,7 @@ def hello_world():
     return 'Hello from Flask!'
 ```
 
-This is what was generating that page we saw when we clicked our link in Step 4f. Now, we should transform this template into what we need for the survey.
+This is what was generating that page we saw when we clicked our link in Step 4g. Now, we should transform this template into what we need for the survey.
 
 First, we need to import the necessary dependencies and initialize some variables that pythonanywhere needs to read our files and run the app.
 
@@ -407,7 +407,7 @@ def index():
 
 #### Step 4k: Return to the Web dashboard and reload the app
 
-See the photo in Step 4f. Hit the green reload button to recompile your app using the new code.
+See the photo in Step 4g. Hit the green reload button to recompile your app using the new code.
 
 Now, if you try to access the URL again, it'll throw an error. Why is that? You can check the error logs (lower down in the dashboard), but I'll explain why: 
 
