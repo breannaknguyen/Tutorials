@@ -443,6 +443,7 @@ Now that we have a functional web app, we need to go back to Qualtrics and conne
 <p align="center">
   <img src="pics/pic16.png" width="50%">
 </p>
+
 #### Step 6b: Retrieve website outputs and set as embedded variables
 Paste the URL you used to test the website into the box and hit "Test"
 
